@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDBxfbJ3cMsTaAB9acY_9sWo9KXSRTVu3I',
-    appId: '1:111373212829:android:d4d7679b4d9bb970378874',
-    messagingSenderId: '111373212829',
-    projectId: 'lectureAlert-d7521',
-    storageBucket: 'lectureAlert-d7521.appspot.com',
+    apiKey: 'AIzaSyAwuOHUTKB5ttsfvNhxFiLzTerZgS742QY',
+    appId: '1:641250897938:android:52712988379eee5b5428cb',
+    messagingSenderId: '641250897938',
+    projectId: 'lecture-alert-dc5bf',
+    storageBucket: 'lecture-alert-dc5bf.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDNvDzVl_KCiktgsLkvCXj8Cn0xJFE8fgs',
-    appId: '1:111373212829:ios:458a15ce18b357f3378874',
-    messagingSenderId: '111373212829',
-    projectId: 'lectureAlert-d7521',
-    storageBucket: 'lectureAlert-d7521.appspot.com',
-    iosBundleId: 'com.lectureAlert.lectureAlert',
+    apiKey: 'AIzaSyA7YewJfRRk9-pHensdInPjeQWSA5BPkBY',
+    appId: '1:641250897938:ios:1bde63797523ff0a5428cb',
+    messagingSenderId: '641250897938',
+    projectId: 'lecture-alert-dc5bf',
+    storageBucket: 'lecture-alert-dc5bf.appspot.com',
+    iosBundleId: 'com.LA.lectureAlert',
   );
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641250897938",
+    "project_id": "lecture-alert-dc5bf",
+    "storage_bucket": "lecture-alert-dc5bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641250897938:android:52712988379eee5b5428cb",
+        "android_client_info": {
+          "package_name": "com.LA.lecture_alert"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwuOHUTKB5ttsfvNhxFiLzTerZgS742QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
