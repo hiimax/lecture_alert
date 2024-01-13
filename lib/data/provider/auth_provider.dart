@@ -72,7 +72,7 @@ class AuthenticationProvider extends ChangeNotifier {
 
   ///add lecture
   //model for register
-  bool _addLectureBusy = false;
+  final bool _addLectureBusy = false;
   bool get addLectureBusy => _addLectureBusy;
 
   //register controllers

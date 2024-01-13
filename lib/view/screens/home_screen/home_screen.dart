@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.separated(
                             cacheExtent: 100,
                             itemBuilder: (ctx, index) {
-                              final _value = auth.lectures[index];
+                              final value = auth.lectures[index];
                               return Padding(
                                 padding: REdgeInsets.fromLTRB(5, 0, 5, 0),
                                 child: Container(
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const YMargin(10),
                                         Row(
                                           children: [
-                                            Text(_value.course,
+                                            Text(value.course,
                                                 textAlign: TextAlign.center,
                                                 style: LectureAlertTextStyle
                                                     .normal
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 )),
                                             const Spacer(),
                                             Text(
-                                                '${_value.date}, ${_value.time}',
+                                                '${value.date}, ${value.time}',
                                                 textAlign: TextAlign.center,
                                                 style: LectureAlertTextStyle
                                                     .small
@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const YMargin(10),
                                         Row(
                                           children: [
-                                            Text(_value.lecturer,
+                                            Text(value.lecturer,
                                                 textAlign: TextAlign.center,
                                                 style: LectureAlertTextStyle
                                                     .normal
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const YMargin(10),
                                         Row(
                                           children: [
-                                            Text(_value.department,
+                                            Text(value.department,
                                                 textAlign: TextAlign.center,
                                                 style: LectureAlertTextStyle
                                                     .normal
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fontWeight: FontWeight.w700,
                                                 )),
                                             const Spacer(),
-                                            Text('Room ${_value.room}',
+                                            Text('Room ${value.room}',
                                                 textAlign: TextAlign.center,
                                                 style: LectureAlertTextStyle
                                                     .normal

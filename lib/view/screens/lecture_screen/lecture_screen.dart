@@ -2,7 +2,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../../data/provider/auth_provider.dart';
 import '../../../data/services/notifications/notification.dart';
+import '../../../models/lecture_model.dart';
 import '../../../res/import/import.dart';
+import '../main_screen/main_screen.dart';
 
 class LectureScreen extends StatefulWidget {
   const LectureScreen({super.key});
@@ -295,17 +297,16 @@ class _LectureScreenState extends State<LectureScreen> with Validators {
                           debugPrint(
                               'Notification Scheduled for ${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}');
                           NotificationService().scheduleNotification(
-                            title: '${auth.courseName}',
-                            body:
-                                'you have ${auth.courseName} scheduled for${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}',
-                            scheduledNotificationDateTime: DateTime(
-                              selectedDate.year,
-                              selectedDate.month,
-                              selectedDate.day,
-                              selectedTime.hour,
-                              selectedTime.minute,
-                            )
-                          );
+                              title: '${auth.courseName}',
+                              body:
+                                  'you have ${auth.courseName} scheduled for${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}',
+                              scheduledNotificationDateTime: DateTime(
+                                selectedDate.year,
+                                selectedDate.month,
+                                selectedDate.day,
+                                selectedTime.hour,
+                                selectedTime.minute,
+                              ));
                         }
                       },
                     ),
