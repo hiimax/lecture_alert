@@ -1,4 +1,4 @@
-
+import '../../models/lecture_model.dart';
 import '../../res/import/import.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
@@ -99,43 +99,6 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addLecture({
-    required context,
-    VoidCallback? onFailure,
-    VoidCallback? onSuccess,
-  }) async {
-    try {
-      _addLectureBusy = true;
-      notifyListeners();
-      final pref = await SharedPreferences.getInstance();
-      await pref.setString(
-        "email",
-        _email.text.trim(),
-      );
-      await pref.setString(
-        "password",
-        _password.text.trim(),
-      );
-      await pref.setString(
-        "firstname",
-        _firstName.text.trim(),
-      );
-      await pref.setString(
-        "lastname",
-        _lastName.text.trim(),
-      );
-      await pref.setString("matricNumber", _username.text.trim());
-      showSuccessToast(message: 'Account creation successful');
-      notifyListeners();
-      onSuccess?.call();
-    } on DioError {
-      onFailure?.call();
-    } finally {
-      _addLectureBusy = false;
-      notifyListeners();
-    }
-  }
-
   bool _rememberMe = false;
   bool get rememberMe => _rememberMe;
 
@@ -205,5 +168,36 @@ class AuthenticationProvider extends ChangeNotifier {
       _loginBusy = false;
       notifyListeners();
     }
+  }
+
+  List<LectureModel> _lectures = [];
+  List<LectureModel> get lectures => _lectures;
+
+  Future<void> loadLectures() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String tasksJson = prefs.getString('tasks') ?? '[]';
+    _lectures = (json.decode(tasksJson) as List<dynamic>)
+        .map((task) => LectureModel.fromMap(task))
+        .toList();
+    notifyListeners();
+  }
+
+  Future<void> saveLectures() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String tasksJson =
+        json.encode(_lectures.map((task) => task.toMap()).toList());
+    prefs.setString('tasks', tasksJson);
+    notifyListeners();
+  }
+
+  void addLecture({
+    required LectureModel value,
+    VoidCallback? onSuccess,
+  }) {
+    _lectures.add(value);
+
+    saveLectures();
+    showSuccessToast(message: 'A new lecture Added');
+    onSuccess?.call();
   }
 }

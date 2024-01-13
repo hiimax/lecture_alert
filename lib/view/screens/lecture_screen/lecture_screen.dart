@@ -1,4 +1,7 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import '../../../data/provider/auth_provider.dart';
+import '../../../data/services/notifications/notification.dart';
 import '../../../res/import/import.dart';
 
 class LectureScreen extends StatefulWidget {
@@ -261,7 +264,49 @@ class _LectureScreenState extends State<LectureScreen> with Validators {
                           currentFocus.unfocus();
                         }
                         final FormState? form = _formKey.currentState;
-                        if (form!.validate()) {}
+                        if (form!.validate()) {
+                          FlutterLocalNotificationsPlugin
+                              flutterLocalNotificationsPlugin =
+                              FlutterLocalNotificationsPlugin();
+                          flutterLocalNotificationsPlugin
+                              .resolvePlatformSpecificImplementation<
+                                  AndroidFlutterLocalNotificationsPlugin>()
+                              ?.requestNotificationsPermission();
+                          auth.addLecture(
+                              value: LectureModel(
+                                course: auth.courseName.text,
+                                lecturer: auth.lecturer.text,
+                                department: auth.department.text,
+                                room: auth.room.text,
+                                date: formatSystemDate(selectedDate.toString()),
+                                time: formatTimeOfDay(selectedTime, context),
+                              ),
+                              onSuccess: () {
+                                auth.courseName.clear();
+                                auth.lecturer.clear();
+                                auth.department.clear();
+                                auth.room.clear();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) => const MainScreen()),
+                                    (route) => false);
+                              });
+                          debugPrint(
+                              'Notification Scheduled for ${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}');
+                          NotificationService().scheduleNotification(
+                            title: '${auth.courseName}',
+                            body:
+                                'you have ${auth.courseName} scheduled for${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}',
+                            scheduledNotificationDateTime: DateTime(
+                              selectedDate.year,
+                              selectedDate.month,
+                              selectedDate.day,
+                              selectedTime.hour,
+                              selectedTime.minute,
+                            )
+                          );
+                        }
                       },
                     ),
                     const YMargin(16),

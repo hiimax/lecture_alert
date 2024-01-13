@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.16"
-  appinio_social_share:
-    dependency: "direct main"
-    description:
-      name: appinio_social_share
-      sha256: a005d1a83f76766ec06de1a89b66cb84d4ca8024f7306b1557ae0fea28992f0b
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.6"
   args:
     dependency: transitive
     description:
@@ -792,14 +784,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
-  pin_code_fields:
-    dependency: "direct main"
-    description:
-      name: pin_code_fields
-      sha256: "4c0db7fbc889e622e7c71ea54b9ee624bb70c7365b532abea0271b17ea75b729"
-      url: "https://pub.dev"
-    source: hosted
-    version: "8.0.1"
   platform:
     dependency: transitive
     description:
@@ -950,7 +934,7 @@ packages:
     source: hosted
     version: "0.6.0"
   timezone:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: timezone
       sha256: "1cfd8ddc2d1cfd836bc93e67b9be88c3adaeca6f40a00ca999104c30693cdca0"

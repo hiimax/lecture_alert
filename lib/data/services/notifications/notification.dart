@@ -1,46 +1,63 @@
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter/cupertino.dart';
-// var random = new Random();
-// PaymentNotification({String? title, String? body}) async {
-//   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//   FlutterLocalNotificationsPlugin();
-//
-//   ////Set the settings for various platform
-//   // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-//   const AndroidInitializationSettings initializationSettingsAndroid =
-//   AndroidInitializationSettings('@mipmap/ic_launcher');
-//   const IOSInitializationSettings initializationSettingsIOS =
-//   IOSInitializationSettings(
-//     requestAlertPermission: true,
-//     requestBadgePermission: true,
-//     requestSoundPermission: true,
-//   );
-//   const LinuxInitializationSettings initializationSettingsLinux =
-//   LinuxInitializationSettings(
-//     defaultActionName: 'hello',
-//   );
-//   const InitializationSettings initializationSettings = InitializationSettings(
-//       android: initializationSettingsAndroid,
-//       iOS: initializationSettingsIOS,
-//       linux: initializationSettingsLinux);
-//   await flutterLocalNotificationsPlugin.initialize(
-//     initializationSettings,
-//   );
-//
-//   ///
-//   const AndroidNotificationChannel channel = AndroidNotificationChannel(
-//       'high_channel', 'High Importance Notification',
-//       description: "This channel is for important notification",
-//       importance: Importance.max);
-//
-//   flutterLocalNotificationsPlugin.show(
-//     random.nextInt(10000),
-//     title,
-//     body,
-//     NotificationDetails(
-//       android: AndroidNotificationDetails(channel.id, channel.name,
-//           channelDescription: channel.description),
-//     ),
-//   );
-// }
-//
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+
+class NotificationService {
+  final FlutterLocalNotificationsPlugin notificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  Future<void> initNotification() async {
+    AndroidInitializationSettings initializationSettingsAndroid =
+        const AndroidInitializationSettings('@mipmap/playstore');
+
+    var initializationSettingsIOS = DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+        onDidReceiveLocalNotification:
+            (int id, String? title, String? body, String? payload) async {});
+
+    var initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    await notificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse:
+            (NotificationResponse notificationResponse) async {});
+  }
+
+  notificationDetails(String channelId, String channelName) {
+    return NotificationDetails(
+        android: AndroidNotificationDetails(channelId, channelName,
+            playSound: true,
+            enableLights: true,
+            priority: Priority.max,
+            ticker: 'ticker',
+            channelShowBadge: true,
+            importance: Importance.max),
+        iOS: const DarwinNotificationDetails());
+  }
+
+  Future showNotification(
+      {int id = 0, String? title, String? body, String? payLoad}) async {
+    return notificationsPlugin.show(
+        id, title, body, await notificationDetails(title!, title));
+  }
+
+  Future scheduleNotification(
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payLoad,
+      required DateTime scheduledNotificationDateTime}) async {
+    return notificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(
+          scheduledNotificationDateTime,
+          tz.local,
+        ),
+        await notificationDetails(title!, title),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+}

@@ -1,4 +1,6 @@
+import 'package:timezone/data/latest.dart' as tz;
 import '../../res/import/import.dart';
+import 'data/services/notifications/notification.dart';
 import 'firebase_options.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -15,7 +17,8 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
+  NotificationService().initNotification();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 
