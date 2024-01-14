@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import '../../../data/provider/auth_provider.dart';
 import '../../../data/provider/test_provider.dart';
 import '../../../res/import/import.dart';
-import '../sign_in/sign_in.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

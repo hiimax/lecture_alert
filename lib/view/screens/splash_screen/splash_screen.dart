@@ -1,6 +1,5 @@
 import '../../../data/provider/auth_provider.dart';
 import '../../../res/import/import.dart';
-import '../sign_up/sign_up.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

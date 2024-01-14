@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
-import 'package:lecture_alert/view/screens/main_screen/main_screen.dart';
 
 import '../../../data/provider/auth_provider.dart';
 import '../../../res/import/import.dart';
-import '../sign_up/sign_up.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -128,10 +126,7 @@ class _SignInScreenState extends State<SignInScreen> with Validators {
                         ),
                         const Spacer(),
                         InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteNames.forgetPassword);
-                          },
+                          onTap: () {},
                           child: Text('Forgot Password ?',
                               textAlign: TextAlign.center,
                               style: LectureAlertTextStyle.small.copyWith(

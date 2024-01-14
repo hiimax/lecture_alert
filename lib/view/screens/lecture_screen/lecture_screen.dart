@@ -1,10 +1,8 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 import '../../../data/provider/auth_provider.dart';
-import '../../../data/services/notifications/notification.dart';
 import '../../../models/lecture_model.dart';
 import '../../../res/import/import.dart';
-import '../main_screen/main_screen.dart';
 
 class LectureScreen extends StatefulWidget {
   const LectureScreen({super.key});
@@ -267,13 +265,6 @@ class _LectureScreenState extends State<LectureScreen> with Validators {
                         }
                         final FormState? form = _formKey.currentState;
                         if (form!.validate()) {
-                          FlutterLocalNotificationsPlugin
-                              flutterLocalNotificationsPlugin =
-                              FlutterLocalNotificationsPlugin();
-                          flutterLocalNotificationsPlugin
-                              .resolvePlatformSpecificImplementation<
-                                  AndroidFlutterLocalNotificationsPlugin>()
-                              ?.requestNotificationsPermission();
                           auth.addLecture(
                               value: LectureModel(
                                 course: auth.courseName.text,
@@ -283,11 +274,32 @@ class _LectureScreenState extends State<LectureScreen> with Validators {
                                 date: formatSystemDate(selectedDate.toString()),
                                 time: formatTimeOfDay(selectedTime, context),
                               ),
-                              onSuccess: () {
+                              onSuccess: () async {
+                                String title = auth.courseName.text;
                                 auth.courseName.clear();
                                 auth.lecturer.clear();
                                 auth.department.clear();
                                 auth.room.clear();
+                                AwesomeNotifications().createNotification(
+                                    content: NotificationContent(
+                                      id: 10,
+                                      channelKey: 'basic_channel',
+                                      title: '$title',
+                                      body:
+                                          'you have $title scheduled for ${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}',
+                                      wakeUpScreen: true,
+                                      category: NotificationCategory.Alarm,
+                                    ),
+                                    schedule: NotificationCalendar.fromDate(
+                                        date: DateTime(
+                                          selectedDate.year,
+                                          selectedDate.month,
+                                          selectedDate.day,
+                                          selectedTime.hour,
+                                          selectedTime.minute,
+                                        ),
+                                        repeats: true,
+                                        preciseAlarm: true));
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
@@ -296,17 +308,6 @@ class _LectureScreenState extends State<LectureScreen> with Validators {
                               });
                           debugPrint(
                               'Notification Scheduled for ${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}');
-                          NotificationService().scheduleNotification(
-                              title: '${auth.courseName}',
-                              body:
-                                  'you have ${auth.courseName} scheduled for${formatTimeOfDay(selectedTime, context)}, ${formatSystemDate(selectedDate.toString())}',
-                              scheduledNotificationDateTime: DateTime(
-                                selectedDate.year,
-                                selectedDate.month,
-                                selectedDate.day,
-                                selectedTime.hour,
-                                selectedTime.minute,
-                              ));
                         }
                       },
                     ),

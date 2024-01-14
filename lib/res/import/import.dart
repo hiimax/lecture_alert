@@ -16,7 +16,6 @@ export 'package:get/get_core/src/get_main.dart';
 export 'package:get/get_navigation/src/root/get_material_app.dart';
 export 'package:get/get_navigation/src/snackbar/snackbar.dart';
 export 'package:hive/hive.dart';
-export 'package:image_picker/image_picker.dart';
 export 'package:lecture_alert/data/local/local_storage.dart';
 export 'package:lecture_alert/res/dimensions/dimensions.dart';
 export 'package:lecture_alert/res/helpers/helpers.dart';
@@ -50,6 +49,8 @@ export '../../res/extention/extension.dart';
 export '../../res/validator/validator.dart';
 export '../../res/view_route/view_route.dart';
 export '../../utils/Animation/page_transition.dart';
+export '../../view/screens/main_screen/main_screen.dart';
+export '../../view/screens/sign_in/sign_in.dart';
+export '../../view/screens/sign_up/sign_up.dart';
 export '../colors/colors.dart';
-
 // export 'package:lecture_alert/view/screens/my_properties/my_properties.dart';
